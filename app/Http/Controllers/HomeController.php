@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Module\Blog\Services\HelperService;
+use Module\Blood\Models\Comment;
+use Module\Blood\Models\IsBloodDonate;
 use Module\Blood\Models\Post;
 
 class HomeController extends Controller
@@ -27,7 +30,9 @@ class HomeController extends Controller
     {
         //$data = (new HelperService())->dahboardData();
 
-        $data['posts'] = Post::query()->latest()
+        $data['posts'] = Post::query()->latest()->activePost()
+        ->with('like_posts')
+        ->with('comments')
         ->when($request->filled('blood_group'), function ($query) use ($request) {
             $blood_group = $request->blood_group;
             $query->whereIn('blood_group', $blood_group);
@@ -50,6 +55,18 @@ class HomeController extends Controller
             ]);
 
         }
+
+        $isDonate = IsBloodDonate::where('created_by',auth()->user()->id)->where('is_blood_donate',1)->first();
+        $different_days = Carbon::parse(optional($isDonate)->date)->diffInMonths();
+
+        if ($different_days >= 3) {
+
+            $isDonate->delete();
+        }
+
+        
+
+
 
         return view('home/index', $data);
 

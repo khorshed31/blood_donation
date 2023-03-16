@@ -105,4 +105,73 @@
 
 
 
+
+        function addToLike(obj,post_id){
+
+        var route              = `{{ route('admin.add-to-like') }}`;
+
+        
+        axios.post(route, {
+            'post_id': post_id,
+        })
+            .then(function (response) {
+                if(response.data.success){
+                    $(obj).html('<i class="mdi mdi-heart text-danger"></i> '+response.data.total +  ' Likes')
+
+                }else {
+                    deleteLike(obj,post_id);
+                }
+            })
+            .catch(function (error) {
+            }); 
+    }
+
+
+
+    function deleteLike(obj,post_id){
+
+    var route              = `{{ route('admin.like-delete') }}`;
+    
+        axios.post(route, {
+
+            'post_id': post_id
+        })
+            .then(function (response) {
+
+                $(obj).html('<i class="uil uil-heart me-1"></i> '+response.data.total +  ' Likes')
+
+            })
+            .catch(function (error) {
+                toster_error(response.data.message)
+            });
+
+
+    }
+
+
+     var isOpen = false;
+
+        function comment(id) {
+            if (!isOpen) {
+                $('#comment'+id).show()
+                isOpen = true;
+
+                $(document).on('mouseup', function(e) {
+                    if (!$('#comment'+id).is(e.target) && $('#comment'+id).has(e.target).length === 0) {
+                        $('#comment'+id).hide();
+                        isOpen = false;
+                        $(document).off('mouseup');
+                    }
+                });
+            } else {
+                $('#comment'+id).hide();
+                isOpen = false;
+            }
+        }
+
+
+
+
+
+
 </script>

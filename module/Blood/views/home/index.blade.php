@@ -1,13 +1,16 @@
 @extends('layouts.master')
 @section('css')
+
+<style>
+    .donate_color{
+        border: 2px solid #ab0a0a;
+    }
+</style>
     
 @endsection
 
 @section('content')
 
-@php
-    $bloodgroups = ['A+','B+','O+','AB+','A-','B-','O-','AB-']
-@endphp
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
@@ -32,7 +35,7 @@
                 <div class="card-body">
                     <h5 class="page-title">Search By Blood Group</h5>
 
-                    @foreach ($bloodgroups as $name)
+                    @foreach (blood_groups() as $name)
                     <div class="form-check form-checkbox-success custom-checkbox">
                         <input type="checkbox" name="blood_group" onchange="fetchData()" value="{{ $name }}" class="form-check-input" id="customCheckcolor{{ $name }}">
                         <label class="form-check-label" for="customCheckcolor{{ $name }}">{{ $name }}</label>
@@ -51,9 +54,8 @@
             <div class="card">
                 <div class="card-body p-2">
                     <div class="list-group list-group-flush my-2">
-                        <a href="javascript:void(0);" class="list-group-item list-group-item-action border-0"><i class='uil uil-calendar-alt me-1'></i> 3 events this week</a>
-                        <a href="javascript:void(0);" class="list-group-item list-group-item-action border-0"><i class='uil uil-calender me-1'></i> Eva's birthday today</a>
-                        <a href="javascript:void(0);" class="list-group-item list-group-item-action border-0"><i class='uil uil-bookmark me-1'></i> Jenny's wedding tomorrow</a>
+                        <a href="{{ route('admin.posts.create') }}" class="btn btn-danger">
+                            <i class='mdi mdi-blood-bag'></i> Request Blood</a>
                     </div>
                 </div>
             </div>
@@ -123,7 +125,7 @@
 
         <div class="col-xxl-6 col-lg-12 order-lg-2 order-xxl-1">
             <!-- new post -->
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-body p-0">
                     <div class="tab-content">
                         <div class="tab-pane show active p-3" id="newpost">
@@ -175,7 +177,7 @@
                         </div> <!-- end preview-->
                     </div> <!-- end tab-content-->
                 </div>
-            </div>
+            </div> --}}
             <!-- end new post -->
 
             <!-- start news feeds -->
@@ -199,29 +201,24 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="header-title">Featured Video For You</h4>
-                        <div class="dropdown">
-                            <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <i class="mdi mdi-dots-horizontal"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">Today</a>
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">Yesterday</a>
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">Last Week</a>
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">Last Month</a>
-                            </div>
-                        </div>
+                        <h4 class="header-title text-danger">Check here if you have given blood</h4>
                     </div>
 
-                    <div class="mt-3">
-                        <div class="ratio ratio-16x9">
-                            <iframe src="https://www.youtube.com/embed/9_eqq0HlN9g?autohide=0&amp;showinfo=0&amp;controls=0"></iframe>
-                        </div>
+                    <div class="mt-2">
+                        <div class="ratio" style="padding: 10px;">
+                            <form id="is_blood_donate" method="POST" action="{{ route('admin.is_donate.store') }}">
+                                @csrf
+                                <input type="checkbox" id="switch3" {{ optional(isDonate())->is_blood_donate == 1 ? 'checked' : '' }} name="is_blood_donate" data-switch="primary"/>
+                                <label for="switch3" data-on-label="Yes" data-off-label="No"></label>
+                                <input type="hidden" name="date" value="{{ Carbon\Carbon::now()->format('m/d/Y')  }}">
+                              </form>
+                        </div><br>
+                        @if (isDonate())
+                            <span class="badge badge-outline-success">
+                            Donate date : {{ Carbon\Carbon::parse(optional(isDonate())->date)->format('d F Y') }}
+                        </span>
+                        @endif
+                        
                     </div>
                 </div> <!-- end card-body -->
             </div>
@@ -301,5 +298,18 @@
 @section('script')
 
 @include('home._inc.script')
+
+
+
+    <script>
+
+        $(document).ready(function() {
+            $('#switch3').change(function() {
+                $('#is_blood_donate').submit();
+            });
+        });
+
+    </script>
+
 
 @endsection

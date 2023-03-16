@@ -102,6 +102,7 @@ class RegisterController extends Controller
                 'city'          => $request->city,
                 'age'           => $request->age,
                 'password'      => $request->password,
+                'role'          => 'user',
             ]);
 
             $userInfo->delete();

@@ -18,19 +18,21 @@
         </a>
     </li>
 
-    {{-- <li class="side-nav-item">
-        <a href="{{ route('admin.images.index') }}" class="side-nav-link">
-            <i class="ri-image-2-fill"></i>
-            <span> Images </span>
+    <li class="side-nav-item">
+        <a href="{{ route('admin.posts.create') }}" class="side-nav-link">
+            <i class='mdi mdi-blood-bag'></i>
+            <span> Request Blood </span>
         </a>
     </li>
-
+@if (isAdmin())
     <li class="side-nav-item">
-        <a href="{{ route('admin.comments') }}" class="side-nav-link">
-            <i class="ri-message-2-fill"></i>
-            <span> Comments </span>
+        <a href="{{ route('admin.posts.all') }}" class="side-nav-link">
+            <i class="uil-rss"></i>
+            <span> All Post </span>
         </a>
-    </li> --}}
+    </li>
+@endif
+    
 
 
 </ul>

@@ -7,8 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Module\Mass\Models\BazarList;
-use Module\Mass\Models\Member;
+use Module\Blood\Models\LikePost;
 use Module\Permission\Models\Permission;
 
 class User extends Authenticatable
@@ -65,13 +64,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Permission::class)->where('status', 1);
     }
 
-    public function member()
+    public function like_posts()
     {
-        return $this->hasOne(Member::class, 'user_id');
-    }
-
-    public function bazar()
-    {
-        return $this->hasOne(BazarList::class, 'created_by');
+        return $this->hasMany(LikePost::class, 'created_by');
     }
 }

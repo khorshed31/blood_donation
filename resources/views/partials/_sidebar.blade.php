@@ -37,21 +37,24 @@
         </div>
 
         <!--- Sidemenu -->
-        @include('partials.sidebars.__sidebar_blog')
+        @include('partials.sidebars.__sidebar_item')
 
         <!--- End Sidemenu -->
 
-        <!-- Help Box -->
-{{--        <div class="help-box text-white text-center">--}}
-{{--            <a href="javascript: void(0);" class="float-end close-btn text-white">--}}
-{{--                <i class="mdi mdi-close"></i>--}}
-{{--            </a>--}}
-{{--            <img src="assets/images/svg/help-icon.svg" height="90" alt="Helper Icon Image" />--}}
-{{--            <h5 class="mt-3">Unlimited Access</h5>--}}
-{{--            <p class="mb-3">Upgrade to plan to get access to unlimited reports</p>--}}
-{{--            <a href="javascript: void(0);" class="btn btn-secondary btn-sm">Upgrade</a>--}}
-{{--        </div>--}}
-        <!-- end Help Box -->
+        @php
+            $start_date = Carbon\Carbon::parse(optional(isDonate())->date)->format('d F Y');
+            $end_date   = Carbon\Carbon::parse(optional(isDonate())->date)->addMonth(3)->format('d F Y');
+            $different_days = Carbon\Carbon::parse(optional(isDonate())->date)->diffInMonths();
+        @endphp
+
+        @if ($different_days < 3 && isDonate())
+            <!-- Help Box -->
+        <div class="text-white text-center alert alert-danger">
+            <h5 class="mt-3">Donate date : {{ Carbon\Carbon::parse(optional(isDonate())->date)->format('d F Y') }}</h5>
+                <b class="mb-3 text-danger">It is requested not to donate blood within <b>{{ 3 - $different_days }}</b> months. Thanks</b>
+        </div>
+            <!-- end Help Box -->
+        @endif
 
         <div class="clearfix"></div>
     </div>
