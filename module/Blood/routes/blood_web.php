@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Module\Blood\Controllers\PostController;
 use Module\Blood\Controllers\IsBloodDonateController;
+use Module\Blood\Controllers\ChatController;
 
 
 
@@ -20,6 +21,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
         
         'posts'         => PostController::class,
         'is_donate'         => IsBloodDonateController::class,
+        'chats'         => ChatController::class,
 
     ]);
 

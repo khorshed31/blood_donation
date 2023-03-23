@@ -31,4 +31,10 @@ class Post extends Model
     }
 
 
+    public function chats()
+    {
+        return $this->hasMany(Chat::class, 'post_id');
+    }
+
+
 }

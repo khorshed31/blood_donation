@@ -117,7 +117,7 @@
                            <div class="row">
                             <div class="col-md-8 mx-auto">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="ri ri-add-line"></i> Add New
+                                    <i class="ri ri-add-line"></i> Request
                                 </button>
                             </div>
                         </div><br>

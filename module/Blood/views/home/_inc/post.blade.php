@@ -24,7 +24,7 @@
                             </div>
                             @endif
                             
-                            <h5 class="m-0">{{ optional($post->created_user)->name }}</h5>
+                            <h5 class="m-0"><a href="{{ auth()->user()->id != $post->created_by ? route('admin.chats.show',optional($post->created_user)->id) : 'javascript: void(0);' }}">{{ optional($post->created_user)->name }}</a></h5>
                             <p class="text-muted"><small>{{ Carbon\Carbon::parse($post->created_at)->diffForHumans() }} <span class="mx-1">⚬</span> <strong>{{ optional($post->created_user)->blood_group }}</strong></small></p>
                         </div>
                     </div>
@@ -57,6 +57,10 @@
                                 <td>Phone Number </td>
                                 <td>: <b><a href="tel:{{ $post->phone  }}">{{ $post->phone }}</a></b></td>
                             </tr>
+                            <tr>
+                                <td>Reason </td>
+                                <td>: <b>{{ $post->reason }}</b></td>
+                            </tr>
                         </table>
                         
                     </div>
@@ -81,7 +85,6 @@
                             <a href="javascript: void(0);" class="btn btn-sm btn-link {{ $post->is_managed == 0 ? 'text-muted' : '' }}">
                                 <i class='{{ $post->is_managed == 1 ? 'ri ri-check-double-line' : '' }}'></i> Managed</a>
                         @endif
-                        
                     </div>
 
                     <hr class="m-0"/>

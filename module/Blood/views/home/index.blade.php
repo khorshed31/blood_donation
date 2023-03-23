@@ -62,7 +62,7 @@
             <!-- end event info -->
 
             <!-- news -->
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <h4 class="header-title">Trending</h4>
@@ -120,7 +120,7 @@
                     </div>
 
                 </div> <!-- end card-body-->
-            </div> <!-- end card-->
+            </div> <!-- end card--> --}}
         </div> <!-- end col -->
 
         <div class="col-xxl-6 col-lg-12 order-lg-2 order-xxl-1">
@@ -225,7 +225,7 @@
             <!-- end video -->
 
             <!-- video -->
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-body pb-0">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <h4 class="header-title">People you may know</h4>
@@ -290,7 +290,7 @@
                     </div>
 
                 </div> <!-- end card-body -->
-            </div>
+            </div> --}}
             <!-- end video -->
         </div> <!-- end col -->
     </div> <!--end row -->
