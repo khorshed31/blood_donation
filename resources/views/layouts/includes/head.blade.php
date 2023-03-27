@@ -176,4 +176,5 @@
     <link rel="stylesheet" href="{{ asset('assets/custom_css/drag-and-drop.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/custom_css/gallery.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/custom_css/jquery.toast.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/custom_css/validin.css') }}" />
 </head>

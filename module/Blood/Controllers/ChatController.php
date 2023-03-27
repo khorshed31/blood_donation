@@ -13,6 +13,27 @@ class ChatController extends Controller
     
 
 
+    public function index(){
+
+        
+        $data['user'] = User::find(auth()->user()->id);
+
+        $data['chat_lists'] = ChatList::where('receiver_id',auth()->user()->id)
+                        ->orWhere('sender_id', auth()->user()->id)
+                        ->likeSearchFromRelation('sender','name')
+                        ->get();
+
+        $unread_all_chats = Chat::where('receiver_id', auth()->user()->id)->where('is_all_read',0)->get();
+        foreach ($unread_all_chats as $key => $chat) {
+            
+            $chat->update([
+                'is_all_read'       => 1,
+                ]);
+                
+            }
+        return view('chat.index',$data);
+    }
+
 
     public function show($id)
     {
@@ -40,8 +61,16 @@ class ChatController extends Controller
                         ->orWhere('sender_id', auth()->user()->id)
                         ->likeSearchFromRelation('sender','name')
                         ->get();
+        $unread_chats = Chat::where('receiver_id', auth()->user()->id)->where('is_read',0)->where('sender_id',$user->id)->get();
+        foreach ($unread_chats as $key => $chat) {
+                
+                $chat->update([
+                    'is_read'       => 1,
+                ]);
 
-        return view('chat.index',$data);                
+            }
+
+        return view('chat.show',$data);                
 
     }
 
@@ -59,7 +88,7 @@ class ChatController extends Controller
             $a = $b;
             $b = $temp;
         }
-        Chat::create([
+        $chat = Chat::create([
 
             // 'post_id'               => $request->post_id,
             'room_id'               => $a.$b,
@@ -72,11 +101,29 @@ class ChatController extends Controller
             'receiver_id'           => $request->receiver_id,
             'sender_id'             => auth()->user()->id,
         ],[
+            'chat_id'               => $chat->id,
             'chat'                  => $request->chat,
         ]);
 
         return redirect()->back();
 
+    }
+
+
+
+
+    public function destroy($id)
+    {
+        try {
+
+            $chat = Chat::query()->find($id);
+            $chat_list = ChatList::query()->where('chat_id',$id)->first();
+            $chat->delete();
+            optional($chat_list)->delete();
+        }catch (\Throwable $th){
+            dd($th->getMessage());
+        }
+        return redirect()->back();
     }
 
 

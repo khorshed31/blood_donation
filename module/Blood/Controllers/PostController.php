@@ -70,6 +70,7 @@ class PostController extends Controller
             'place'                 => $request->place,
             'amount_of_blood'       => $request->amount_of_blood,
             'phone'                 => $request->phone,
+            'reason'                => $request->reason,
             'blood_group'           => $request->blood_group,
         ]);
 

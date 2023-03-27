@@ -24,6 +24,30 @@
             <span> Request Blood </span>
         </a>
     </li>
+
+    <li class="side-nav-item">
+        <a href="{{ route('admin.all.users.index') }}" class="side-nav-link">
+            <i class='uil uil-users-alt'></i>
+            <span> All Users </span>
+        </a>
+    </li>
+
+    <li class="side-nav-item">
+        <a href="{{ route('admin.chats.index') }}" class="side-nav-link">
+            @if (is_read_count() > 0)
+                <span class="badge bg-danger text-white float-end">{{ is_read_count() }}</span>
+            @endif
+            
+            @if (is_read_count() > 0)
+                <i class='uil uil-comment-check text-danger'></i>
+            @else
+                <i class='uil uil-comment'></i>
+            @endif
+            
+            <span> Message </span>
+        </a>
+    </li>
+
 @if (isAdmin())
     <li class="side-nav-item">
         <a href="{{ route('admin.posts.all') }}" class="side-nav-link">

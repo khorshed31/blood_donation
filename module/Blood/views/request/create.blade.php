@@ -46,7 +46,7 @@
 
 
                         <form method="POST" action="{{ route('admin.posts.store') }}" class="form-horizontal"
-                              enctype="multipart/form-data">
+                              enctype="multipart/form-data" id="validateForm">
                         @csrf
 
                         <div class="row">
@@ -100,7 +100,7 @@
                         <div class="row">
                             <div class="col-md-8 mx-auto">
                                 <label class="form-label">Phone Number <sup class="text-danger">*</sup>:</label>
-                                <input type="number" name="phone" class="form-control">
+                                <input type="number" validate="phone" name="phone" class="form-control">
                             </div>
                         </div><br>
 

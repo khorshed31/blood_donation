@@ -24,6 +24,8 @@
 
         <!-- Icons css -->
         <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+
+        <link rel="stylesheet" href="{{ asset('assets/custom_css/validin.css') }}" />
     </head>
 
     <body class="authentication-bg">
@@ -52,13 +54,14 @@
                                         {!! \Session::get('message') !!}
                                     </div>
                                 @endif
-                                <form action="{{ route('signup.store') }}" method="GET">
+                                <form action="{{ route('signup.store') }}" method="GET" id="validateForm">
 
                                 @csrf
 
                                     <div class="mb-3">
                                         <label for="fullname" class="form-label">Full Name</label>
-                                        <input class="form-control" type="text" id="fullname" name="name" placeholder="Enter your name" required>
+                                        <input class="form-control" type="text" id="fullname" name="name" validate="name"
+                                         placeholder="Enter your name" required>
                                     </div>
 
                                     <div class="mb-3">
@@ -154,7 +157,7 @@
         <!--  Select2 Plugin Js -->
         <script src="{{ asset('assets/vendor/select2/js/select2.min.js') }}"></script>
 
-        <script src="{{ asset('frontend/js/validin.js') }}"></script>
+        <script src="{{ asset('assets/custom_js/validin.js') }}"></script>
 
         <script>
             $(document).ready(function(){

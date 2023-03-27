@@ -16,10 +16,13 @@ class CreateChatListsTable extends Migration
         Schema::create('chat_lists', function (Blueprint $table) {
             $table->id();
 
+            $table->unsignedBigInteger('chat_id');
             $table->unsignedBigInteger('receiver_id');
             $table->unsignedBigInteger('sender_id');
             $table->text('chat');
+            $table->unsignedTinyInteger('is_read')->default(0);
             
+            $table->foreign('chat_id')->references('id')->on('chats')->onDelete('cascade');
             $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
 

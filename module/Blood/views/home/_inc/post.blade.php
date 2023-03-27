@@ -7,7 +7,7 @@
                             $randomColor = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
                             $image = $avatar->create(optional($post->created_user)->name)->setBackground($randomColor)->toBase64();
                         @endphp
-                        <img class="me-2 rounded" src="{{ $image }}" alt="Generic placeholder image" height="32">
+                        <img class="me-2 rounded" src="{{ isset(optional($post->created_user)->image) ? asset(optional($post->created_user)->image) : $image }}" alt="Generic placeholder image" height="32">
                         <div class="w-100">
                             @if (auth()->user()->id == $post->created_by)
                                 <div class="dropdown float-end text-muted">

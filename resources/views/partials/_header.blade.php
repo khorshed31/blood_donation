@@ -113,7 +113,7 @@
                                         $randomColor = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
                                         $image = $avatar->create(optional(auth()->user())->name)->setBackground($randomColor)->toBase64();
                                     @endphp
-                                    <img src="{{ $image }}" alt="user-image" class="rounded-circle">
+                                    <img src="{{ isset(optional(auth()->user())->image) ? asset(optional(auth()->user())->image) : $image }}" alt="user-image" class="rounded-circle">
                                 </span>
                     <span>
                                     <span class="account-user-name">{{ optional(auth()->user())->name }}</span>
@@ -127,7 +127,7 @@
                     </div>
 
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="{{ route('admin.profile.index') }}" class="dropdown-item notify-item">
                         <i class="mdi mdi-account-circle me-1"></i>
                         <span>My Account</span>
                     </a>

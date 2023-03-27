@@ -66,8 +66,6 @@
                                         $avatar = new \Laravolt\Avatar\Avatar();
                                         $randomColor = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
                                         $image = $avatar->create(optional($item->sender)->name)->setBackground($randomColor)->toBase64();
-
-                                        $unread_chats = Module\Blood\Models\Chat::where('receiver_id', auth()->user()->id)->where('is_read',0)->where('sender_id',$item->id)->count();
                                     @endphp
                                     @if ($item->sender_id != auth()->user()->id)
                                         <a href="{{ route('admin.chats.show',$item->sender_id) }}" class="text-body">
@@ -79,7 +77,7 @@
                                                     {{ $item->sender->name }}
                                                 </h5>
                                                 <p class="mt-1 mb-0 text-muted font-14">
-                                                    {{-- <span class="w-25 float-end text-end"><span class="badge badge-danger-lighten">{{ $unread_chats > 0 ? $unread_chats : '' }}</span></span> --}}
+                                                    {{-- <span class="w-25 float-end text-end"><span class="badge badge-danger-lighten">{{ $unread_chats }}</span></span> --}}
                                                     <span class="w-75">{{ $item->chat }}</span>
                                                 </p>
                                             </div>
@@ -102,11 +100,81 @@
         <div class="col-xxl-6 col-xl-12 order-xl-2">
             <div class="card">
                 <div class="card-body px-0 pb-0">
+                    <ul class="conversation-list px-3" data-simplebar style="max-height: 554px">
+                        @foreach ($chats as $chat)
+                        @php
+                            $avatar = new \Laravolt\Avatar\Avatar();
+                            $randomColor = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+                            $image_sender = $avatar->create(optional($chat->sender)->name)->setBackground($randomColor)->toBase64();
+                            $image_receiver = $avatar->create($user->name)->setBackground($randomColor)->toBase64();
+
+                        @endphp
+
+                        {{-- @if ($chat->room_id == $a.$b) --}}
+                             <li class="clearfix {{ $chat->sender_id == auth()->user()->id ? 'odd' : '' }}">
+                            <div class="chat-avatar">
+                                @if ($chat->sender_id == auth()->user()->id)
+                                    <img src="{{ isset(optional($chat->sender)->image) ? asset(optional($chat->sender)->image) : $image_sender }}" class="rounded" alt="" />
+                                @else
+                                    <img src="{{ isset($user->image) ? asset($user->image) : $image_receiver }}" class="rounded" alt="" />
+                                @endif
+                                
+                                <i>{{ Carbon\Carbon::parse($chat->created_at)->format('h:m a') }}</i>
+                            </div>
+                            <div class="conversation-text">
+                                <div class="ctext-wrap">
+                                    <i>{{ optional($chat->sender)->name }}</i>
+                                    <p>
+                                        {!! $chat->chat !!}
+                                    </p>
+                                </div>
+                            </div>
+                            @if ($chat->created_by == auth()->user()->id)
+                                <div class="conversation-actions dropdown">
+                                <button class="btn btn-sm btn-link" data-bs-toggle="dropdown"
+                                    aria-expanded="false"><i class='uil uil-ellipsis-v'></i></button>
+
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    {{-- <a class="dropdown-item" href="#">Copy Message</a>
+                                    <a class="dropdown-item" href="#">Edit</a> --}}
+                                    <a class="dropdown-item" href="#" onclick="delete_item(`{{ route('admin.chats.destroy', $chat->id) }}`)">Delete</a>
+                                </div>
+                            </div>
+                            @endif
+                            
+                        </li>
+                        
+                        {{-- @endif --}}
+                           
+                        @endforeach
+                        
+                        
+                    </ul>
                 </div> <!-- end card-body -->
                 <div class="card-body p-0">
                     <div class="row">
                         <div class="col">
                             <div class="mt-2 bg-light p-3">
+                                <form class="needs-validation" novalidate="" action="{{ route('admin.chats.store') }}"
+                                    method="post" id="chat-form">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col mb-2 mb-sm-0">
+                                            <input type="text" class="form-control border-0" name="chat" placeholder="Enter your text" required="">
+                                            <input type="hidden" name="receiver_id" value="{{ $user->id }}">
+                                            <div class="invalid-feedback">
+                                                Please enter your messsage
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-auto">
+                                            <div class="btn-group">
+                                                <div class="d-grid">
+                                                    <button type="submit" class="btn btn-success chat-send"><i class='uil uil-message'></i></button>
+                                                </div> 
+                                            </div>
+                                        </div> <!-- end col -->
+                                    </div> <!-- end row-->
+                                </form>
                             </div> 
                         </div> <!-- end col-->
                     </div>

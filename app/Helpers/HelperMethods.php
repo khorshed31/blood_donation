@@ -1,6 +1,6 @@
 <?php
 
-
+use Module\Blood\Models\Chat;
 use Module\Blood\Models\IsBloodDonate;
 
 function redirectIfError($error, $with_input = null)
@@ -34,6 +34,13 @@ function isDonate(){
     return IsBloodDonate::where('created_by',auth()->user()->id)->where('is_blood_donate',1)->first(); 
 }
 
+
+
+function is_read_count(){
+
+    return Chat::where('receiver_id', auth()->user()->id)->where('is_all_read',0)->count();
+
+}
 
 
 

@@ -19,6 +19,9 @@
 
     <!-- Icons css -->
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="{{ asset('assets/custom_css/validin.css') }}" />
+
 </head>
 
 <body class="authentication-bg">
@@ -42,7 +45,7 @@
                             <p class="text-muted mb-4">Enter your email address and password to access admin panel.</p>
                         </div>
 
-                        <form action="{{ route('signin') }}" method="POST">
+                        <form action="{{ route('signin') }}" method="POST" id="validateForm">
                             @csrf
                             @if (\Session::has('message'))
                                 <div class="alert alert-info" style="padding: 6px;margin: 0px;">
@@ -52,7 +55,8 @@
 
                             <div class="mb-3">
                                 <label for="emailaddress" class="form-label">Email address</label>
-                                <input class="form-control" name="email" type="email" id="emailaddress" required="" placeholder="Enter your email">
+                                <input class="form-control" name="email" type="email" validate="email"
+                                 id="emailaddress" required="" placeholder="Enter your email">
                             </div>
 
                             <div class="mb-3">
@@ -106,6 +110,14 @@
 
 <!-- App js -->
 <script src="{{ asset('assets/js/app.min.js') }}"></script>
+
+
+<script src="{{ asset('assets/custom_js/validin.js') }}"></script>
+
+<script>
+    // Validate Email
+    $('#validateForm').validin();
+</script>
 
 </body>
 

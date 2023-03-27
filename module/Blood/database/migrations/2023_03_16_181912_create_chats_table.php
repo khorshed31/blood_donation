@@ -23,6 +23,8 @@ class CreateChatsTable extends Migration
             $table->unsignedBigInteger('receiver_id');
             $table->unsignedBigInteger('sender_id');
             $table->text('chat');
+            $table->unsignedTinyInteger('is_read')->default(0);
+            $table->unsignedTinyInteger('is_all_read')->default(0);
 
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');

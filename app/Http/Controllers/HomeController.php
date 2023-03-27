@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Module\Blog\Services\HelperService;
+use Module\Blood\Models\Chat;
 use Module\Blood\Models\Comment;
 use Module\Blood\Models\IsBloodDonate;
 use Module\Blood\Models\Post;
@@ -39,6 +41,14 @@ class HomeController extends Controller
         })
         ->paginate(2);
 
+        // $data['users'] = User::whereHas('chat_receives', function($q){
+        //                 $q->where('sender_id', auth()->user()->id)->where('is_read',0);
+        //             })->with('chat_receives')->get();
+
+                    // dd($data);
+
+        $data['users'] = Chat::where('receiver_id', auth()->user()->id)->where('is_read',0)
+                    ->get();
         if ($request->filled('is_ajax')) {
 
             $view = view('home/_inc/post', $data)->render();

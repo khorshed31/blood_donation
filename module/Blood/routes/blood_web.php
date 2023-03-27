@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Module\Blood\Controllers\PostController;
 use Module\Blood\Controllers\IsBloodDonateController;
 use Module\Blood\Controllers\ChatController;
+use Module\Blood\Controllers\AllUserController;
+use Module\Blood\Controllers\ProfileController;
 
 
 
@@ -19,9 +21,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
         */
     Route::resources([
         
-        'posts'         => PostController::class,
+        'posts'             => PostController::class,
         'is_donate'         => IsBloodDonateController::class,
-        'chats'         => ChatController::class,
+        'chats'             => ChatController::class,
+        'profile'           => ProfileController::class,
 
     ]);
 
@@ -35,6 +38,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::post('comment', [PostController::class, 'commentStore'])->name('comments.save');
 
     Route::get('is/managed', [PostController::class, 'isManaged'])->name('is.managed');
+
+
+    Route::get('all/users', [AllUserController::class, 'index'])->name('all.users.index');
+
+    Route::post('change/password', [ProfileController::class, 'change_pass'])->name('change.password');
 
 
 });

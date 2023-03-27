@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Module\Blood\Models\Chat;
 use Module\Blood\Models\LikePost;
 use Module\Permission\Models\Permission;
 
@@ -57,6 +58,22 @@ class User extends Authenticatable
     // }
 
 
+    public function scopeSearchByField($query, $filed_name)
+    {
+        $query->when(request()->filled($filed_name), function ($qr) use ($filed_name) {
+            $qr->where($filed_name, request()->$filed_name);
+        });
+    }
+
+
+
+    public function scopeLikeSearch($query, $filed_name)
+    {
+        $query->when(request()->filled($filed_name), function ($qr) use ($filed_name) {
+            $qr->where($filed_name, 'like', '%' . request()->$filed_name . '%');
+        });
+    }
+
 
 
     public function permissions()
@@ -68,4 +85,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(LikePost::class, 'created_by');
     }
+
+
+    public function chat_receives()
+    {
+        return $this->hasMany(Chat::class, 'receiver_id')->latest();
+    }
+
+    public function chat_receive()
+    {
+        return $this->hasOne(Chat::class, 'receiver_id');
+    }
+
+
 }

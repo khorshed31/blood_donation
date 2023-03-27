@@ -137,6 +137,8 @@
 
 <script src="{{ asset('assets/custom_js/jquery.toast.js') }}"></script>
 
+<script src="{{ asset('assets/custom_js/validin.js') }}"></script>
+
 
 
 
@@ -323,6 +325,11 @@
     $('.only-number').keypress(function() {
         return onlyNumber(event)
     })
+
+
+
+    // Validate Email
+    $('#validateForm').validin();
 
 
 
