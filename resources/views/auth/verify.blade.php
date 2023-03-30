@@ -99,7 +99,8 @@
                                       </div>
 
                                     <div class="mb-0 text-center">
-                                        <button class="btn btn-success" type="submit">Varify</button>
+                                        <!-- <button class="btn btn-success" id="btn_submit" type="button" onclick="otp()">Varify</button> -->
+                                        <button class="btn btn-success" id="btn_submit" type="submit">Varify</button>
                                     </div>
                                 </form>
 
@@ -171,6 +172,21 @@
                             $clipboard.val($content);
                         },100);
                 });
+
+
+
+                
+
+                function otp(){
+                  let code = '{{ $userOTP->code }}'
+                  let input_code = $('#verificationCode').val() 
+                   
+                  if (code == input_code) {
+                    console.log(code,input_code)
+                    $('#btn_submit').submit();
+                  }
+                }
+
         </script>
 
     </body>
