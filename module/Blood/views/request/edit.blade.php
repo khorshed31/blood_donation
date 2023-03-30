@@ -105,6 +105,13 @@
                             </div>
                         </div><br>
 
+                        <div class="row">
+                            <div class="col-md-8 mx-auto">
+                                <label class="form-label">Reason <sup class="text-danger">*</sup>:</label>
+                                <textarea name="reason" id="" class="form-control">{{ $post->reason }}</textarea>
+                            </div>
+                        </div><br>
+
 
 
                             <!-- Action -->
