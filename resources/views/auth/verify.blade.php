@@ -95,11 +95,12 @@
                                         <input type="hidden" name="city" value="{{ $userInfo['city'] }}"/>
                                         <input type="hidden" name="age" value="{{ $userInfo['age'] }}"/>
                                         <input type="hidden" name="password" value="{{ $userInfo['password'] }}"/>
+                                        <input type="hidden" name="code" id="code" value="{{ $userInfo['code'] }}"/>
                                     
                                       </div>
 
                                     <div class="mb-0 text-center">
-                                        <button class="btn btn-success" type="submit">Varify</button>
+                                        <button class="btn btn-success" type="submit" id="verify_submit_btn" disabled>Varify</button>
                                     </div>
                                 </form>
 
@@ -156,11 +157,21 @@
                 }
             }
 
+            let code = $("#code").val();
+            let input_code = $("#verificationCode").val();
+
+            if (code == input_code) {
+                $('#verify_submit_btn').prop('disabled', false);
+            }
+            else {
+                $('#verify_submit_btn').prop('disabled', true);
+            }
+
             }); // keyup
 
             $('.verification-code input').on("paste",function(event,pastedValue){
             $('#txt').val($content)
-            console.log($content)
+            // console.log($content)
             //console.log(values)
             });
 
@@ -171,6 +182,10 @@
                             $clipboard.val($content);
                         },100);
                 });
+
+
+
+
         </script>
 
     </body>

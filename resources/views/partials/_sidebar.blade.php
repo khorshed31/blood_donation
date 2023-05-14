@@ -3,20 +3,20 @@
     <!-- Logo Light -->
     <a href="index.html" class="logo logo-light">
                     <span class="logo-lg">
-                        <img src="assets/images/logo.png" alt="logo" height="22">
+                        <img src="{{ asset('assets/images/blood.png') }}" alt="logo" height="50">
                     </span>
         <span class="logo-sm">
-                        <img src="assets/images/logo-sm.png" alt="small logo" height="22">
+            <img src="{{ asset('assets/images/blood.png') }}" alt="logo" height="50">
                     </span>
     </a>
 
     <!-- Logo Dark -->
     <a href="index.html" class="logo logo-dark">
                     <span class="logo-lg">
-                        <img src="assets/images/logo-dark.png" alt="dark logo" height="22">
+                        {{-- <img src="assets/images/logo-dark.png" alt="dark logo" height="22"> --}}
                     </span>
         <span class="logo-sm">
-                        <img src="assets/images/logo-dark-sm.png" alt="small logo" height="22">
+                        {{-- <img src="assets/images/logo-dark-sm.png" alt="small logo" height="22"> --}}
                     </span>
     </a>
 

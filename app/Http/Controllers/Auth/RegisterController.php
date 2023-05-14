@@ -73,7 +73,8 @@ class RegisterController extends Controller
             'blood_group'   => $request->blood_group,
             'city'          => $request->city,
             'age'           => $request->age,
-            'password'      => Hash::make($request->password),         
+            'password'      => Hash::make($request->password),     
+            'code'          => $userOTP->code,    
         ];    
 
         \Mail::to($request->email)->send(new \App\Mail\RegisterMail($userOTP));
