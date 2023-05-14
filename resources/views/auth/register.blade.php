@@ -50,7 +50,7 @@
                                 </div>
 
                                 @if (\Session::has('message'))
-                                    <div class="alert alert-info" style="padding: 6px;margin: 0px;">
+                                    <div class="alert alert-danger" style="padding: 6px;margin: 0px;">
                                         {!! \Session::get('message') !!}
                                     </div>
                                 @endif

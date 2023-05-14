@@ -5,7 +5,7 @@
     <li class="side-nav-item">
         <a href="{{ url('home') }}" class="side-nav-link">
             <i class="uil-home-alt"></i>
-            <span> Dashboard </span>
+            <span> Home </span>
         </a>
     </li>
 

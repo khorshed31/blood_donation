@@ -28,6 +28,9 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    public $user_phone = 0 ;
+    public $user_email = 0 ;
+
     /**
      * Where to redirect users after registration.
      *
@@ -66,20 +69,41 @@ class RegisterController extends Controller
             'code'          => mt_rand(1111,9999),
         ]);
 
-        $userInfo = [
-            'name'          => $request->name,
-            'email'         => $request->email,
-            'phone'         => $request->phone,
-            'blood_group'   => $request->blood_group,
-            'city'          => $request->city,
-            'age'           => $request->age,
-            'password'      => Hash::make($request->password),     
-            'code'          => $userOTP->code,    
-        ];    
 
-        \Mail::to($request->email)->send(new \App\Mail\RegisterMail($userOTP));
+        $users = User::get();
 
-        return view('auth.verify', compact('userOTP','userInfo'));
+        foreach($users as $user){
+
+            $user->phone == $request->phone ? $this->user_phone = 1 : $this->user_phone = 0 ;
+
+            $user->email == $request->email ? $this->user_email = 1 : $this->user_email = 0 ;
+
+        }
+
+        
+
+        if ($this->user_phone == 0 || $this->user_email == 0) {     
+            $userInfo = [
+                        'name'          => $request->name,
+                        'email'         => $request->email,
+                        'phone'         => $request->phone,
+                        'blood_group'   => $request->blood_group,
+                        'city'          => $request->city,
+                        'age'           => $request->age,
+                        'password'      => Hash::make($request->password),     
+                        'code'          => $userOTP->code,    
+                    ];    
+
+                    \Mail::to($request->email)->send(new \App\Mail\RegisterMail($userOTP));
+
+                    return view('auth.verify', compact('userOTP','userInfo'));
+        }
+
+        else {
+            return back()->withMessage('Phone or Email Already Register');
+        }
+
+        
     }
 
 

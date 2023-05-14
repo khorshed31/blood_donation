@@ -53,19 +53,15 @@ class ProfileController extends Controller
 
     public function change_pass(Request $request)
     {
+        
 
-        if ($request->old_password == $request->new_password) {
+        $user = User::find(auth()->id());
+
+        if (Hash::check($request->old_password, $user->password)){
 
             if ($request->new_password == $request->confirm_password) {
 
-            User::updateOrCreate([
-
-                'id'                   => auth()->user()->id
-            ],
-            [
-    
-                    'password'          => Hash::make($request->new_password) ,
-            ]);
+                User::updateOrCreate(['id'    => auth()->id()], ['password' =>  Hash::make($request->new_password)]);
                 
             }
 
@@ -78,21 +74,21 @@ class ProfileController extends Controller
             return redirect()->back()->withError('Old Password & New Password Not Matched');
         }
 
-        $user = User::updateOrCreate([
-            'id'                   => auth()->user()->id
-        ],
-        [
+        // $user = User::updateOrCreate([
+        //     'id'                   => auth()->user()->id
+        // ],
+        // [
 
-                'name'          => $request->name,
-                'email'         => $request->email,
-                'phone'         => $request->phone,
-                'blood_group'   => $request->blood_group,
-                'city'          => $request->city,
-                'age'           => $request->age,
-                'description'   => $request->description,
-        ]);
+        //         'name'          => $request->name,
+        //         'email'         => $request->email,
+        //         'phone'         => $request->phone,
+        //         'blood_group'   => $request->blood_group,
+        //         'city'          => $request->city,
+        //         'age'           => $request->age,
+        //         'description'   => $request->description,
+        // ]);
 
-        $this->uploadFileWithResize($request->image, $user ,'image', 'assets/upload/user');
+        // $this->uploadFileWithResize($request->image, $user ,'image', 'assets/upload/user');
 
         return redirect()->back()->withMessage('Success!');
 
