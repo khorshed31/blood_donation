@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('city')->nullable();
             $table->integer('age')->nullable();
             $table->enum('role', ['user', 'admin'])->nullable();
-            $table->string('designation')->nullable();
+            $table->string('description')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
