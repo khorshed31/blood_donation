@@ -100,6 +100,7 @@
                                     <th>Place</th>
                                     <th>Amount of Blood</th>
                                     <th>Phone</th>
+                                    <th>Is Managed</th>
                                     <th>Status</th>
                                     <th class="text-center" width="10%">Action</th>
                                 </tr>
@@ -117,6 +118,9 @@
                                         <td>{{ $item->place }}</td>
                                         <td>{{ $item->amount_of_blood }}</td>
                                         <td>{{ $item->phone }}</td>
+                                        <td><span class="badge {{ $item->is_managed == 1 ? 'badge-success-lighten' : 'badge-info-lighten' }}">
+                                            {{ $item->is_managed == 1 ? 'Managed' : 'Not Managed' }}
+                                        </span></td>
                                         <td>
                                             <form id="my-form{{ $item->id }}" method="POST" action="{{ route('admin.posts.status',$item->id) }}">
                                                 @csrf
