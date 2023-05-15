@@ -8,6 +8,17 @@
 
 @section('css')
 
+<style>
+    .datepicker-wrapper {
+  position: relative;
+}
+
+.datepicker-wrapper .datepicker-dropdown {
+  top: 100%;
+  bottom: auto;
+}
+</style>
+
 @endsection
 
 @section('content')
@@ -65,9 +76,13 @@
                         <div class="row">
                             <div class="col-md-8 mx-auto">
                                 <label class="form-label">Donation Date <sup class="text-danger">*</sup>: </label>
-                                <div class="position-relative" id="datepicker4">
+                                {{-- <div class="position-relative">
+                                    <input type="text" id="datepicker11" class="form-control" data-date-format="m/d/yyyy" 
+                                    value="{{ Carbon\Carbon::now()->format('m/d/Y') }}" required>
+                                </div> --}}
+                                <div class="datepicker-wrapper">
                                     <input type="text" class="form-control" data-provide="datepicker" name="date" autocomplete="off"
-                                    data-date-autoclose="true" data-date-container="#datepicker4" data-date-format="m/d/yyyy"
+                                    data-date-autoclose="true" id="datepicker11" data-date-format="m/d/yyyy"
                                     value="{{ Carbon\Carbon::now()->format('m/d/Y') }}" required>
                                 </div>
                             </div>
@@ -134,7 +149,24 @@
 @section('js')
 
 
-  
+  <script>
+      
+      $(document).ready(function() {
+  // Initialize the datepicker
+  $('#datepicker11').datepicker({
+    startDate: '0d', // Set the minimum date to today
+    autoclose: true, // Close the datepicker when a date is selected
+    showOnFocus: false // Do not show the datepicker on input focus
+  });
+
+  // Open the datepicker when the input is clicked
+  $('#datepicker11').on('focus', function() {
+    $(this).datepicker('show');
+  });
+});
+
+
+  </script>
 
 
 @endsection

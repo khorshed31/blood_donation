@@ -61,6 +61,7 @@ class ChatController extends Controller
                         ->orWhere('sender_id', auth()->user()->id)
                         ->likeSearchFromRelation('sender','name')
                         ->get();
+                        
         $unread_chats = Chat::where('receiver_id', auth()->user()->id)->where('is_read',0)->where('sender_id',$user->id)->get();
         foreach ($unread_chats as $key => $chat) {
                 
