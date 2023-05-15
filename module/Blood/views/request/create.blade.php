@@ -8,20 +8,22 @@
 
 @section('css')
 
-<style>
+{{-- <style>
     .datepicker-wrapper {
-  position: relative;
-}
+        position: relative !important;
+    }
 
-.datepicker-wrapper .datepicker-dropdown {
-  top: 100%;
-  bottom: auto;
-}
-</style>
+    .datepicker-wrapper .datepicker-dropdown {
+        top: 100% !important;
+        bottom: auto !important;
+    }
+</style> --}}
 
 @endsection
 
 @section('content')
+
+
 
     <div class="row">
         <div class="col-12">
