@@ -69,20 +69,18 @@ class RegisterController extends Controller
             'code'          => mt_rand(1111,9999),
         ]);
 
+        // $request->validate([
+        //     'phone' => 'required|exists:users',
+        //     'email' => 'required|exists:users',
+        // ]);
 
-        $users = User::get();
-
-        foreach($users as $user){
-
-            $user->phone == $request->phone ? $this->user_phone = 1 : $this->user_phone = 0 ;
-
-            $user->email == $request->email ? $this->user_email = 1 : $this->user_email = 0 ;
+        if (User::where('phone', '=', $request->phone)->exists() || User::where('email', '=', $request->email)->exists()) {  
+            
+            return back()->withMessage('Phone or Email Already Register');
 
         }
-
-        
-
-        if ($this->user_phone == 0 || $this->user_email == 0) {     
+        else {
+            
             $userInfo = [
                         'name'          => $request->name,
                         'email'         => $request->email,
@@ -97,10 +95,6 @@ class RegisterController extends Controller
                     \Mail::to($request->email)->send(new \App\Mail\RegisterMail($userOTP));
 
                     return view('auth.verify', compact('userOTP','userInfo'));
-        }
-
-        else {
-            return back()->withMessage('Phone or Email Already Register');
         }
 
         
