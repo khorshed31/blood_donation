@@ -73,7 +73,7 @@
                         <!-- item-->
 
                         @foreach ($blood_wise_posts as $post)
-                            <a href="{{ route('admin.posts.all') }}?id={{ $post->id }}" class="dropdown-item p-0 notify-item card unread-noti shadow-none mb-2">
+                            <a href="{{ route('home') }}#post{{ $post->id }}" class="dropdown-item p-0 notify-item card unread-noti shadow-none mb-2">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 text-truncate ms-2">

@@ -41,7 +41,7 @@ class HomeController extends Controller
             $blood_group = $request->blood_group;
             $query->whereIn('blood_group', $blood_group);
         })
-        ->paginate(2);
+        ->paginate(4);
 
         // $data['users'] = User::whereHas('chat_receives', function($q){
         //                 $q->where('sender_id', auth()->user()->id)->where('is_read',0);
