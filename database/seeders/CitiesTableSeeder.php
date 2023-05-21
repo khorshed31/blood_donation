@@ -33,7 +33,7 @@ class CitiesTableSeeder extends Seeder
         return [
 
             ['id' => '1',   'name' => 'Natore'],
-            ['id' => '2',   'name' => 'testv'],
+            ['id' => '2',   'name' => 'Naogaon'],
             ['id' => '3',   'name' => 'Chuadanga'],
             ['id' => '4',   'name' => 'Chittagong'],
             ['id' => '5',   'name' => 'Bogra'],
