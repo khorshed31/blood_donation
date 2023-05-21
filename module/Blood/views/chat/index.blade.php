@@ -65,27 +65,27 @@
                                     @php
                                         $avatar = new \Laravolt\Avatar\Avatar();
                                         $randomColor = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
-                                        $image = $avatar->create(optional($item->sender)->name)->setBackground($randomColor)->toBase64();
+                                        $image = $avatar->create(optional($item->receiver)->name)->setBackground($randomColor)->toBase64();
 
                                         $unread_chats = Module\Blood\Models\Chat::where('receiver_id', auth()->user()->id)->where('is_read',0)->where('sender_id',$item->id)->count();
                                     @endphp
-                                    @if ($item->sender_id != auth()->user()->id)
-                                        <a href="{{ route('admin.chats.show',$item->sender_id) }}" class="text-body">
+                                    @if ($item->receiver_id != auth()->user()->id)
+                                        <a href="{{ route('admin.chats.show',$item->receiver_id) }}" class="text-body">
                                         <div class="d-flex align-items-start {{ $item->receiver_id == auth()->user()->id ? 'bg-light' : '' }} mt-1 p-2">
-                                            <img src="{{ isset(optional($item->sender)->image) ? asset(optional($item->sender)->image) : $image }}" class="me-2 rounded-circle" height="48" alt="Brandon Smith" />
+                                            <img src="{{ isset(optional($item->receiver)->image) ? asset(optional($item->receiver)->image) : $image }}" class="me-2 rounded-circle" height="48" alt="Brandon Smith" />
                                             <div class="w-100 overflow-hidden">
                                                 <h5 class="mt-0 mb-0 font-14">
                                                     <span class="float-end text-muted font-12">{{ Carbon\Carbon::parse($item->created_at)->format('h:m a') }}</span>
-                                                    {{ $item->sender->name }}
+                                                    {{ $item->receiver->name }}
                                                 </h5>
                                                 <p class="mt-1 mb-0 text-muted font-14">
                                                     {{-- <span class="w-25 float-end text-end"><span class="badge badge-danger-lighten">{{ $unread_chats > 0 ? $unread_chats : '' }}</span></span> --}}
-                                                    <span class="w-75">{{ $item->chat }}</span>
+                                                    {{-- <span class="w-75">{{ $item->chat }}</span> --}}
                                                 </p>
                                             </div>
                                         </div>
                                     </a>
-                                    @endif
+                                    @endif      
                                     
                                     @endforeach                                                   
 

@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Module\Blog\Services\HelperService;
 use Module\Blood\Models\Chat;
 use Module\Blood\Models\Comment;
 use Module\Blood\Models\IsBloodDonate;
+use Module\Blood\Models\LikePost;
 use Module\Blood\Models\Post;
 
 class HomeController extends Controller
@@ -39,7 +41,7 @@ class HomeController extends Controller
             $blood_group = $request->blood_group;
             $query->whereIn('blood_group', $blood_group);
         })
-        ->paginate(2);
+        ->paginate(4);
 
         // $data['users'] = User::whereHas('chat_receives', function($q){
         //                 $q->where('sender_id', auth()->user()->id)->where('is_read',0);
@@ -74,9 +76,19 @@ class HomeController extends Controller
             $isDonate->delete();
         }
 
+        // $date = Carbon::now()->format('m/d/Y');
         
+        // $expired_posts = Post::whereRaw("STR_TO_DATE(date, '%m/%d/%Y') <= CURDATE()")->get();
 
-
+        $expired_posts = Post::where(DB::raw("STR_TO_DATE(date, '%m/%d/%Y') <= CURDATE()"))
+        ->orWhere(DB::raw("STR_TO_DATE(date, '%m/%d/%Y') = CURDATE() AND TIME_FORMAT(time, '%h:%m:%s %A') < CURTIME()"))
+        ->get();
+        
+        foreach ($expired_posts as $key => $value) {
+            $like_post = LikePost::where('post_id', $value->id)->delete();
+            $like_comment = Comment::where('post_id', $value->id)->delete();
+            $value->delete();
+        }
 
         return view('home/index', $data);
 

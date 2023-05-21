@@ -1,6 +1,7 @@
 
 @php
-    $posts = Module\Blood\Models\Post::where('status',0)->get();
+    // $posts = Module\Blood\Models\Post::where('status',0)->get();
+    $blood_wise_posts = Module\Blood\Models\Post::where('blood_group',auth()->user()->blood_group)->get();
 @endphp
 
 
@@ -47,11 +48,11 @@
        
 
         <ul class="list-unstyled topbar-menu float-end mb-0">
-            @if (isAdmin())
+            {{-- @if (isAdmin()) --}}
                 <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="ri-notification-3-line noti-icon"></i>
-                    @if($posts->count() > 0)
+                    @if($blood_wise_posts->count() > 0)
                         <span class="noti-icon-badge"></span>
                     @endif
                     
@@ -63,7 +64,7 @@
                                 <h6 class="m-0 font-16 fw-semibold"> Notification</h6>
                             </div>
                             <div class="col-auto">
-                                <span class="badge badge-outline-warning">{{ $posts->count() }}</span>
+                                <span class="badge badge-outline-warning">{{ $blood_wise_posts->count() }}</span>
                             </div>
                         </div>
                     </div>
@@ -71,8 +72,8 @@
                     <div class="px-3" style="max-height: 300px;" data-simplebar>
                         <!-- item-->
 
-                        @foreach ($posts as $post)
-                            <a href="{{ route('admin.posts.all') }}?id={{ $post->id }}" class="dropdown-item p-0 notify-item card unread-noti shadow-none mb-2">
+                        @foreach ($blood_wise_posts as $post)
+                            <a href="{{ route('home') }}#post{{ $post->id }}" class="dropdown-item p-0 notify-item card unread-noti shadow-none mb-2">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 text-truncate ms-2">
@@ -89,7 +90,7 @@
 
                 </div>
             </li>
-            @endif
+            {{-- @endif --}}
             
 
             <li class="notification-list d-none d-sm-inline-block">

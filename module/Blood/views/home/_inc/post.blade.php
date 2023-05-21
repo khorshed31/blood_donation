@@ -1,5 +1,5 @@
 @foreach ($posts as $post)
-                <div class="card {{ $post->is_managed == 1 ? 'donate_color' : '' }}">
+                <div class="card {{ $post->is_managed == 1 ? 'donate_color' : '' }}" id="post{{ $post->id }}">
                 <div class="card-body pb-1">
                     <div class="d-flex">
                         @php
@@ -55,7 +55,7 @@
                             </tr>
                             <tr>
                                 <td>Phone Number </td>
-                                <td>: <b><a href="tel:{{ $post->phone  }}">{{ $post->phone }}</a></b></td>
+                                <td>: <b>{{ $post->phone }}</b></td>
                             </tr>
                             <tr>
                                 <td>Reason </td>

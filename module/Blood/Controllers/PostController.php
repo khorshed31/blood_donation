@@ -173,6 +173,12 @@ public function isManaged(Request $request)
                 'is_managed'                  => $request->is_managed,
         ]);
 
+        $post = Post::query()->find($request->post_id);
+            LikePost::where('post_id', $post->id)->delete();
+            Comment::where('post_id', $post->id)->delete();
+         $post->delete();   
+
+
         return redirect()->back();
 
     }
@@ -185,6 +191,8 @@ public function isManaged(Request $request)
         try {
 
             $post = Post::query()->find($id);
+            LikePost::where('post_id', $post->id)->delete();
+            Comment::where('post_id', $post->id)->delete();
             $post->delete();
             if (file_exists($post->image)) {
                 unlink($post->image);
