@@ -100,7 +100,7 @@
                                       </div>
 
                                     <div class="mb-0 text-center">
-                                        <button class="btn btn-success" type="submit" id="verify_submit_btn" disabled>Varify</button>
+                                        <button class="btn btn-success" type="submit" id="verify_submit_btn" disabled>Verify</button>
                                     </div>
                                 </form>
 
