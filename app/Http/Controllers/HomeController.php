@@ -83,7 +83,6 @@ class HomeController extends Controller
         $expired_posts = Post::where(DB::raw("STR_TO_DATE(date, '%m/%d/%Y') <= CURDATE()"))
         ->orWhere(DB::raw("STR_TO_DATE(date, '%m/%d/%Y') = CURDATE() AND TIME_FORMAT(time, '%h:%m:%s %A') < CURTIME()"))
         ->get();
-        
         foreach ($expired_posts as $key => $value) {
             $like_post = LikePost::where('post_id', $value->id)->delete();
             $like_comment = Comment::where('post_id', $value->id)->delete();
