@@ -129,8 +129,8 @@
 
     $('#password_confirmation').on('keyup',function () {
 
-        let password = Number($('#password').val())
-        let cpassword = Number($(this).val())
+        let password = $('#password').val()
+        let cpassword = $(this).val()
 
         if (password == cpassword){
             $(".reset_btn").prop("disabled", false);
