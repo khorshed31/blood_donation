@@ -93,14 +93,14 @@
                                 <h5 class="mb-0 text-muted"><i class="mdi mdi-blood-bag text-danger"></i> Blood Group: <b class="text-danger">{{ $user->blood_group }}</b></h5>
                             
                                 <div class="row mt-3">
-                                    <div class="col-4">
+                                    <div class="col-6">
                                         <a href="{{ route('admin.chats.show', $user->id) }}" class="btn w-100 btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Message"><i class="mdi mdi-message-processing-outline">
                                         <sup class="text-danger"><b>{{ $unread_chats > 0 ? $unread_chats : '' }}</b></sup></i></a>
                                     </div>
-                                    <div class="col-4">
+                                    {{-- <div class="col-4">
                                         <a href="tel:{{ $user->phone }}" class="btn w-100 btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Call"><i class="mdi mdi-phone"></i></a>
-                                    </div>
-                                    <div class="col-4">
+                                    </div> --}}
+                                    <div class="col-6">
                                         <a href="mailto:{{ $user->email }}" class="btn w-100 btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Email"><i class="mdi mdi-email-outline"></i></a>
                                     </div>
                                 </div>
