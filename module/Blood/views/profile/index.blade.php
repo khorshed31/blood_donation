@@ -46,11 +46,11 @@
                 <p class="text-muted font-14">{{ $user->role }}</p>
 
                 <div class="text-start mt-3">
-                    <h4 class="font-13 text-uppercase">About Me :</h4>
+                    <h4 class="font-13">About Me :</h4>
                     <p class="text-muted font-13 mb-3">
                         {!! $user->description !!}
                     </p>
-                    <p class="text-muted mb-2 font-13"><strong>Blood_group :</strong> <span class="ms-2 text-danger">{{ $user->blood_group }}</span></p>
+                    <p class="text-muted mb-2 font-13"><strong>Blood Group :</strong> <span class="ms-2 text-danger">{{ $user->blood_group }}</span></p>
 
                     <p class="text-muted mb-2 font-13"><strong>Phone :</strong><span class="ms-2">{{ $user->phone }}</span></p>
 

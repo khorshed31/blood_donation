@@ -174,6 +174,7 @@ public function isManaged(Request $request)
         ]);
 
         $post = Post::query()->find($request->post_id);
+        //dd($post);
             LikePost::where('post_id', $post->id)->delete();
             Comment::where('post_id', $post->id)->delete();
          $post->delete();   
