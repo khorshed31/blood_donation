@@ -1,6 +1,6 @@
 <ul class="side-nav">
 
-    <li class="side-nav-title side-nav-item">Navigation</li>
+    <!--<li class="side-nav-title side-nav-item">Navigation</li>-->
 
     <li class="side-nav-item">
         <a href="{{ url('home') }}" class="side-nav-link">
@@ -9,7 +9,7 @@
         </a>
     </li>
 
-    <li class="side-nav-title side-nav-item">Blood Donation</li>
+    <!--<li class="side-nav-title side-nav-item">Blood Donation</li>-->
 
     <li class="side-nav-item">
         <a href="{{ route('admin.posts.index') }}" class="side-nav-link">

@@ -30,7 +30,7 @@ class RegisterMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Blood Donation System Send')
+        return $this->subject('redPulse System Send')
                     ->view('mail.register_mail');
     }
 }

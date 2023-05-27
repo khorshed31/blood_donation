@@ -42,20 +42,9 @@ class User extends Authenticatable
     ];
 
 
-    public function scopeMass($query)
-    {
-        if (auth()->id() == 1) {
-            return;
-        }
-        return $query->where('id', auth()->user()->type == 'owner' ? auth()->id() : auth()->user()->mass_id);
-    }
+   
 
 
-    // public function businessInfo()
-    // {
-    //     BusinessSetting::where('id', auth()->user()->type == 'owner' ? auth()->id() : auth()->user()->dokan_id)->first();
-    //     return $this->belongsTo(BusinessSetting::class, 'dokan_id','user_id');
-    // }
 
 
     public function scopeSearchByField($query, $filed_name)

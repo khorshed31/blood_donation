@@ -51,6 +51,7 @@ class HomeController extends Controller
 
         $data['users'] = Chat::where('receiver_id', auth()->user()->id)->where('is_read',0)
                     ->get();
+                    
         if ($request->filled('is_ajax')) {
 
             $view = view('home/_inc/post', $data)->render();
