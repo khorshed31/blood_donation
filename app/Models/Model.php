@@ -9,16 +9,6 @@ class Model extends BaseModel
     protected $guarded = [];
 
 
-    public function scopeMass($query)
-    {
-        if (auth()->id() == 1) {
-            return;
-        }
-        return $query->where('mass_id', auth()->user()->type == 'owner' ? auth()->id() : auth()->user()->mass_id);
-    }
-
-
-
     public function scopeSearchByField($query, $filed_name)
     {
         $query->when(request()->filled($filed_name), function ($qr) use ($filed_name) {

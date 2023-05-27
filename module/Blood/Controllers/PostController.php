@@ -22,7 +22,7 @@ class PostController extends Controller
                         ->searchByField('blood_group')
                         ->dateFilter('date')
                         ->latest()
-                        ->paginate(25);
+                        ->paginate(10);
 
         return view('my-feed.index', $data);                
 

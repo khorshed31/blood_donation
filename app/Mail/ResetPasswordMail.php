@@ -33,7 +33,7 @@ class ResetPasswordMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Blood Donation Reset Password')
+        return $this->subject('redPulse Reset Password')
             ->view('mail.reset_pass_link'); 
     }
 }
