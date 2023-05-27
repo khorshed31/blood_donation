@@ -40,20 +40,20 @@
                         <div class="tab-pane show active card-body pb-0" id="newpost">
 
                             <!-- start search box -->
-                            <div class="app-search">
+                            {{-- <div class="app-search">
                                 <form>
                                     <div class="input-group">
                                         <input type="text" name="name" class="form-control"
                                             placeholder="Search People ..." />
                                         <button class="btn btn-success" type="submit" style="padding: 18px;"><span class="mdi mdi-magnify search-icon"></span></button>
                                     </div>
-                                    {{-- <div class="mb-2 position-relative">
+                                    <div class="mb-2 position-relative">
                                         <input type="text" class="form-control"
                                             placeholder="People, groups & messages..." />
                                         <span class="mdi mdi-magnify search-icon"></span>
-                                    </div> --}}
+                                    </div>
                                 </form>
-                            </div>
+                            </div> --}}
                             <!-- end search box -->
                         </div>
 
